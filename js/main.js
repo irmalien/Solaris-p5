@@ -1,70 +1,38 @@
-// let img;
 const windowWidth = document.documentElement.clientWidth;
 const windowHeight = document.documentElement.clientHeight;
 
-function preload(){
-  // img - loadImage('kitten.jpg')
-}
-let d =8
-let n =5
-let c =0.1;
-let k = 5/8;
 let sliderD;
 let sliderN;
 let sliderC;
 let sliderSize;
+let sliderTrail;
+let sliderLineWeight;
+
+let blueRose;
+
+
 
 function setup() {
-  createCanvas(windowWidth, windowHeight*0.9);
-  // angleMode(DEGREES)
-  w1=width
-  h1=height
-  sliderD=createSlider(1, 30, 14, 1)
-  sliderN=createSlider(1, 30, 15, 1)
-  sliderC=createSlider(1, 100, 4, 0.01)
-  sliderSize=createSlider(10, 1000, 500, 1)
-  frameRate(30)
-  // z = TWO_PI-0.1
+  // createCanvas(windowWidth, windowHeight);
+  //createCanvas(1280, 720);
+  createCanvas(4400, 2616);
+  // frameRate(3)
 
+  sliderD=createSlider(1, 30, 15, 0.01) //6 //14
+  sliderN=createSlider(1, 30, 30, 0.01) //17 //15
+  sliderC=createSlider(1, 100, 4, 0.01)
+  sliderSize=createSlider(10, windowHeight*1.5, 500, 1)
+  sliderTrail=createSlider(0, loopTrailA, 10, 1)
+  sliderLineWeight=createSlider(0, 5, 0.1, 0.1)
+  blueRose = new Rose();
 }
 
 function draw() {
-  background(0)
-  d=sliderD.value();
-  n=sliderN.value();
-  step=0.001;
-  c=c+step;
-  // c=sliderC.value();
+  translate(width/2, height/2);
+  background(0);
 
-  size=sliderSize.value();
-  console.log(d,n,c)
-  k= n/d;
-  // w1++
-  // h1++
-  // z = z-0.1
-  // r=r+0.1;
-  let newC = c
-  let alfa = 255;
-  translate(w1/2, h1/2);
-  noFill()
-  for(let i=1; i<100; i++){
-    let newStep = i*(step/100);
-    newC = newC+newStep;
-    alfa = alfa-4
-    beginShape();
-    for (let a=0; a<TWO_PI*d; a+=TWO_PI/newC){
-      const r= size*cos(k*a)
-      const x = r*cos(a);
-      const y = r*sin(a);
-      stroke(40,240,250, alfa);
-      strokeWeight(0.5);
-      vertex(x,y);
-    }
-    endShape();
-  }
-
-
-  
-  // image(img, 0, 0, mouseX, mouseY)
-  // ellipse(0, 0, 100, 100)
+  blueRose.sliders();
+  blueRose.move();
+  // blueRose.draw();
+  blueRose.drawTrail();
 }

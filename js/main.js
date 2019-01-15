@@ -12,17 +12,17 @@ let blueRose2;
 
 
 function setup() {
-  // createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight);
   //createCanvas(1280, 720);
-  createCanvas(4400, 2616);
+  // createCanvas(4400, 2616);
   frameRate(30)
 
-  sliderD=createSlider(1, 30, d, 0.01) //6 //14
-  sliderN=createSlider(1, 30, n, 0.01) //17 //15
-  sliderC=createSlider(1, 100, c, 0.01)
-  sliderSize=createSlider(10, windowHeight*1.5, size, 1)
-  sliderTrail=createSlider(0, trailSizeA, trailSizeB, 1)
-  sliderLineWeight=createSlider(0, 5, lineWeight, 0.025)
+  // sliderD=createSlider(1, 30, d, 0.01) //6 //14
+  // sliderN=createSlider(1, 30, n, 0.01) //17 //15
+  // sliderC=createSlider(1, 100, c, 0.01)
+  // sliderSize=createSlider(10, windowHeight*1.5, size, 1)
+  // sliderTrail=createSlider(0, trailSizeA, trailSizeB, 1)
+  // sliderLineWeight=createSlider(0, 5, lineWeight, 0.025)
   blueRose = new Rose();
 }
 
@@ -34,8 +34,7 @@ function draw() {
   blueRose.intro(500);
   blueRose.playD(0.001, -0.001);
   blueRose.move();
-  // blueRose.draw();
   blueRose.drawTrail();
-  blueRose.consoleLog()
+  // blueRose.consoleLog()
 }
 

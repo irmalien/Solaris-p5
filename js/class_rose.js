@@ -3,7 +3,7 @@ let n = 47
 let c = 3.14;
 let k = d/n;
 
-let size = windowHeight;
+let size = windowHeight*0.8;
 let rotation = 0.005;
 
 let trailSizeA = 250;

@@ -1,42 +1,53 @@
-let d = 8
-let n = 5
-let c =0.01;
-let k = 5/8;
-let cStep=0.002;
+let d = 3
+let n = 47
+let c = 3.14;
+let k = d/n;
 
-let angle = 0;
-let angleStep = 0.000000
+let size = windowHeight;
+let rotation = 0.005;
 
-let step=0.002;
+let trailSizeA = 250;
+let trailSizeB = trailSizeA;
+let trailDistance=0.0001;
+let trailAlfa= 150; //less is less, 255 is ok, more is more
 
-let loopTrailA = 255;
-let loopTrailB = loopTrailA;
+let lineWeight =0.25;
 
-let lineWeight =0.1;
 
 let count = 0;
 let trueCount = 0;
-let middle = false;
+
+//
+let d_play=0.1;
+let n_play=0.1;
+let intro = true;
+let introAlfa;
 
 class Rose {
   constructor() { 
 
   }
 
-  trail(){
-    if (trueCount >= 1500){
-      middle = true;
+  intro(_frames){
+
+    if (intro == true){
+      introAlfa = trailAlfa;
+      trailAlfa = 0;
+      intro = false;
+      console.log(trailAlfa)
     };
   
-    if(count >= 18){
-      count=0;
-      if (middle == false){
-        trail++;
+    let divider = introAlfa/_frames;
+
+    if(trueCount <= _frames){
+        trailAlfa = trailAlfa + divider;
+        console.log("new" + introAlfa,divider)
       }
-      else{
-        trail--
-      }
-    }
+  }
+
+
+  trail(){
+   
   }
 
   sliders(){
@@ -44,8 +55,13 @@ class Rose {
     n=sliderN.value();
     c=sliderC.value();
     size=sliderSize.value();
-    loopTrailB=sliderTrail.value();
+    trailSizeB=sliderTrail.value();
     lineWeight = sliderLineWeight.value();
+  }
+
+  playD(_dplay, _nplay){
+    d=d+_dplay;
+    n=n+_nplay;
   }
 
   move(){
@@ -53,8 +69,6 @@ class Rose {
     trueCount++;
 
     k=n/d;
-    // c=c+step;
-
   }
   
   draw(){ 
@@ -72,29 +86,30 @@ class Rose {
   
   }
   
-  drawRotate(){
-    angleStep=angleStep-0.000000001;
-    angle = angle+angleStep;
-    rotate(angle);
-  }
 
   drawTrail(){
-    // let newC = c;
-    let alfa = 255;
-    let alfaStep = 255/loopTrailB;
-    for(let i=loopTrailA-loopTrailB; i<=loopTrailA; i++){
+    let alfa = trailAlfa;
+    let alfaStep = alfa/trailSizeB;
+    for(let i=trailSizeA-trailSizeB; i<=trailSizeA; i++){
 
-      let newC = c+(i*(step/10));
+      let newC = c+(i*(trailDistance));
       alfa = alfa-alfaStep;
       noFill()
-      rotate(0.01);
+      if(i<trailSizeA/1.5){
+        blendMode(SCREEN);
+      }
+      else {
+        blendMode(NORMAL);  
+      }
+
+      rotate(rotation);
       beginShape();
         for (let a=0; a<TWO_PI*d; a+=TWO_PI/newC){ //+TWO_PI/newC
           const r= size*cos(k*a)
           const x = r*cos(a);
           const y = r*sin(a);
 
-          stroke(40,240,250, alfa);
+          stroke(165,96,125, alfa); //          stroke(40,240,250, alfa); (220,0,60, alfa)
           strokeWeight(lineWeight);
           vertex(x,y);
         }
@@ -103,9 +118,9 @@ class Rose {
   }
 
   consoleLog(){
-    console.log(count, trueCount, trail, middle)
+    console.log(trueCount)
     console.log(d, n, c)
-    console.log(frameRate())
+    // console.log(frameRate())
   }
 
 
